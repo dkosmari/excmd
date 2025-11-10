@@ -140,7 +140,7 @@ struct get_value_parser_2
 template<typename... Types>
 struct get_value_parser_2<no_value_type, Types...>
 {
-   static value_parser *get(Types... args)
+   static value_parser *get(Types... /*args*/)
    {
       return nullptr;
    }

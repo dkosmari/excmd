@@ -1,7 +1,11 @@
+#include <exception>
 #include <iostream>
 #include "excmd.h"
 
 // Options for Decaf ;)
+
+using std::cout;
+using std::endl;
 
 int main(int argc, char **argv)
 {
@@ -52,35 +56,35 @@ int main(int argc, char **argv)
 
       if (options.has("sys-path")) {
          auto path = options.get<std::string>("sys-path");
-         std::cout << "sys-path: " << path << std::endl;
+         cout << "sys-path: " << path << endl;
       }
 
       if (options.has("play")) {
          auto path = options.get<std::string>("game directory");
-         std::cout << "play game dir: " << path << std::endl;
+         cout << "play game dir: " << path << endl;
       } else if (options.has("hwtest")) {
-         std::cout << "hwtest" << std::endl;
+         cout << "hwtest" << endl;
       } else if (options.has("fuzztest")) {
-         std::cout << "fuzztest" << std::endl;
+         cout << "fuzztest" << endl;
       }
 
       if (options.has("version")) {
-         std::cout << "Decaf Emulator version 0.0.1" << std::endl;
-         std::exit(0);
+         cout << "Decaf Emulator version 0.0.1" << endl;
+         return 0;
       }
 
       if (argc == 1 || options.has("help")) {
          if (options.has("help-command")) {
-            std::cout << parser.format_help(argv[0], options.get<std::string>("help-command")) << std::endl;
+            cout << parser.format_help(argv[0], options.get<std::string>("help-command")) << endl;
          } else {
-            std::cout << parser.format_help(argv[0]) << std::endl;
+            cout << parser.format_help(argv[0]) << endl;
          }
 
-         std::exit(0);
+         return 0;
       }
-   } catch (excmd::exception ex) {
-      std::cout << "Error parsing options: " << ex.what() << std::endl;
-      std::exit(-1);
+   } catch (std::exception& ex) {
+      cout << "Error parsing options: " << ex.what() << endl;
+      return -1;
    }
 
    return 0;

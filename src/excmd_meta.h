@@ -80,7 +80,7 @@ struct get_allowed;
 template<typename ValueType>
 struct get_allowed<ValueType>
 {
-   static bool get(std::vector<ValueType> &values)
+   static bool get(std::vector<ValueType> &/*values*/)
    {
       return false;
    }
@@ -99,7 +99,7 @@ struct get_allowed<ValueType, allowed<std::string>, Remaining...>
 template<typename ValueType, typename First, typename... Remaining>
 struct get_allowed<ValueType, First, Remaining...>
 {
-   static bool get(std::vector<ValueType> &values, First first, Remaining... args)
+   static bool get(std::vector<ValueType> &values, First /*first*/, Remaining... args)
    {
       return get_allowed<ValueType, Remaining...>::get(values, args...);
    };
@@ -112,7 +112,7 @@ struct get_default_value;
 template<typename ValueType>
 struct get_default_value<ValueType>
 {
-   static bool get(ValueType &value)
+   static bool get(ValueType &/*value*/)
    {
       return false;
    }
@@ -121,7 +121,7 @@ struct get_default_value<ValueType>
 template<typename ValueType, typename... Remaining>
 struct get_default_value<ValueType, default_value<std::string>, Remaining...>
 {
-   static bool get(ValueType &value, default_value<ValueType> def, Remaining... args)
+   static bool get(ValueType &value, default_value<ValueType> def, Remaining... /*args*/)
    {
       value = def.value;
       return true;
@@ -131,7 +131,7 @@ struct get_default_value<ValueType, default_value<std::string>, Remaining...>
 template<typename ValueType, typename First, typename... Remaining>
 struct get_default_value<ValueType, First, Remaining...>
 {
-   static bool get(ValueType &value, First first, Remaining... args)
+   static bool get(ValueType &value, First /*first*/, Remaining... args)
    {
       return get_default_value<ValueType, Remaining...>::get(value, args...);
    };
@@ -153,7 +153,7 @@ struct get_description<>
 template<typename First, typename... Remaining>
 struct get_description<First, Remaining...>
 {
-   static std::string get(First first, Remaining... args)
+   static std::string get(First /*first*/, Remaining... args)
    {
       return get_description<Remaining...>::get(args...);
    };
@@ -162,7 +162,7 @@ struct get_description<First, Remaining...>
 template<typename... Remaining>
 struct get_description<description, Remaining...>
 {
-   static std::string get(description desc, Remaining... args)
+   static std::string get(description desc, Remaining... /*args*/)
    {
       return desc.desc;
    }

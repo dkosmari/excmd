@@ -1,0 +1,16 @@
+# EditorConfig: http://EditorConfig.org
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+charset = utf-8
+
+# 3 space indentation
+[*.{cpp,hpp,c,h}]
+indent_style = space
+indent_size = 3
+
+# Tab indentation
+[Makefile*]
+indent_style = tab
